@@ -1,18 +1,13 @@
-from models import ant
-from models import anthill
+
+from models import *
 import pygame
 import keyboard as kb
 import time
 
-SIZE = 100
-ANTS = 60
 
-BLACK = (0, 0, 0)
+#simulation
 RUN = True
-ANT_COLOR = (56, 38, 38)
-FOOD_COLOR = (255,0,0)
 CLOCK = pygame.time.Clock()
-HOME = (SIZE//2, SIZE//2)
 
 def _window():
     global SIZE, BLACK
@@ -37,8 +32,8 @@ def draw(window, map):
             pygame.draw.rect(window, color, [x*10+1,y*10+1,8,8],0)
 
 def new (x):
-    global SIZE, HOME
-    x = ant(*HOME,SIZE)
+    global  SPAWNPOINT
+    x = ant(*SPAWNPOINT)
     return x
 def main():
     global RUN, ANTS, CLOCK
