@@ -5,6 +5,8 @@ import keyboard as kb
 import time
 
 
+
+
 #simulation
 RUN = True
 CLOCK = pygame.time.Clock()
@@ -12,6 +14,8 @@ CLOCK = pygame.time.Clock()
 BLACK = (0, 0, 0)
 ANT_COLOR = (56, 38, 38)
 FOOD_COLOR = (255,0,0)
+
+
 
 def _window():
     global SIZE, BLACK
@@ -30,10 +34,12 @@ def draw(window, map):
             elif map[x,y,0]:
                 color = FOOD_COLOR
             elif map[x,y,1] or map[x,y,2]:
-                color = (0, map[x,y,1],map[x, y,2])
+                color = (0, min(map[x,y,1],255),min(map[x, y,2],255))
 
-
-            pygame.draw.rect(window, color, [x*10+1,y*10+1,8,8],0)
+            if color == ANT_COLOR:
+                pygame.draw.rect(window, color, [x*10+3,y*10+3,4,4],0)
+            else:
+                pygame.draw.rect(window, color, [x*10,y*10,10,10],0)
 
 def new (x):
     global  SPAWNPOINT
@@ -41,8 +47,13 @@ def new (x):
     return x
 def main():
     global RUN, ANTS, CLOCK
+
     map = anthill(SIZE)
-    map.set_food(1,1,10,10,1)
+    map.set_food(0,0,1,100,10)
+    map.set_food(0,0,100,1,10)
+    map.set_food(99,0,1,100,10)
+    map.set_food(0,99,100,1,10)
+    #map.set_food(0,0,10,10,10)
 
     ants = [new(i) for i in range(ANTS)]
     pygame.init()
@@ -50,6 +61,7 @@ def main():
 
 
     while RUN:
+
         pygame.event.get()
 
         for ant in ants:
@@ -61,9 +73,7 @@ def main():
             RUN = False
         draw(window, map.map)
         pygame.display.flip()
-        CLOCK.tick(30)
-
-
+        CLOCK.tick(300)
 
 
 
