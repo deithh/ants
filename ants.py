@@ -30,7 +30,7 @@ def draw(window, anthill, ants):
         ant.draw(window, IMG['ant'])
 
 def new (x, anthill):
-    x = ant(*SPAWNPOINT, anthill)
+    x = ant(anthill, *SPAWNPOINT)
     return x
 
 def main():
@@ -41,7 +41,11 @@ def main():
     # Anthill.set_food(0,0,100,1,100)
     # Anthill.set_food(99,0,1,100,100)
     # Anthill.set_food(0,99,100,1,100)
-    Anthill.set_food(10,10,10,10,100)
+    # Anthill.set_food(10,10,10,10,100)
+    Anthill.set_food(80,80,10,10,100)
+    Anthill.set_rocks(70,0,1,80)
+    Anthill.set_rocks(65,80,1,10)
+    Anthill.set_rocks(70,90,1,10)
 
     ants = [new(i, Anthill) for i in range(ANTS)]
     pygame.init()
@@ -62,9 +66,5 @@ def main():
         draw(window, Anthill, ants)
         pygame.display.flip()
         CLOCK.tick(FPS)
-
-
-
-
 
 main()
